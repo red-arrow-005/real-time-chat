@@ -30,24 +30,42 @@ const Register = () => {
             </Typography>
             <Grid container spacing={2} justifyContent="center">
                 <Grid item>
-                    <Button color="primary" startIcon={<Facebook />} />
+                    <Button color="primary" startIcon={<Facebook style={{ color: '#4267B2' }} />} />
                 </Grid>
                 <Grid item>
-                    <Button color="primary" startIcon={<Twitter />} />
+                    <Button color="primary" startIcon={<Twitter style={{ color: '#1DA1F2' }} />} />
                 </Grid>
                 <Grid item>
-                    <Button color="primary" startIcon={<Google />} />
+                    <Button color="primary" startIcon={<Google style={{ color: '#DB4437' }} />} />
                 </Grid>
                 <Grid item>
-                    <Button color="primary" startIcon={<GitHub />} />
+                    <Button color="primary" startIcon={<GitHub style={{ color: '#24292E' }} />} />
                 </Grid>
             </Grid>
             <Typography variant="body1" align="center" gutterBottom>
                 or:
             </Typography>
             <Box component="form" noValidate sx={{ mt: 1 }}>
-                <TextField margin="normal" required fullWidth label="Username" autoFocus />
-                <TextField margin="normal" required fullWidth label="Email Address" autoComplete="email" />
+                <TextField margin="normal" required fullWidth label="Username" autoFocus sx={{
+                    '& .MuiOutlinedInput-root': {
+                        '&:hover fieldset': {
+                            borderColor: '#D2DBC8', // Border color on hover
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: '#D2DBC8', // Border color when focused
+                        },
+                    },
+                }} />
+                <TextField margin="normal" required fullWidth label="Email Address" autoComplete="email" sx={{
+                    '& .MuiOutlinedInput-root': {
+                        '&:hover fieldset': {
+                            borderColor: '#D2DBC8', // Border color on hover
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: '#D2DBC8', // Border color when focused
+                        },
+                    },
+                }} />
                 <TextField
                     margin="normal"
                     required
@@ -55,6 +73,16 @@ const Register = () => {
                     label="Password"
                     type={showPassword ? 'text' : 'password'}
                     autoComplete="current-password"
+                    sx={{
+                        '& .MuiOutlinedInput-root': {
+                            '&:hover fieldset': {
+                                borderColor: '#D2DBC8', // Border color on hover
+                            },
+                            '&.Mui-focused fieldset': {
+                                borderColor: '#D2DBC8', // Border color when focused
+                            },
+                        },
+                    }}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -72,6 +100,16 @@ const Register = () => {
                     label="Confirm Password"
                     type={showConfirmPassword ? 'text' : 'password'}
                     autoComplete="current-password"
+                    sx={{
+                        '& .MuiOutlinedInput-root': {
+                            '&:hover fieldset': {
+                                borderColor: '#D2DBC8', // Border color on hover
+                            },
+                            '&.Mui-focused fieldset': {
+                                borderColor: '#D2DBC8', // Border color when focused
+                            },
+                        },
+                    }}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -83,7 +121,15 @@ const Register = () => {
                     }}
                 />
                 <FormControlLabel control={<Checkbox value="terms" color="primary" />} label="I have read and agree to the terms" />
-                <Button fullWidth variant="contained" color="primary" sx={{ mt: 3, mb: 2 }}>
+                <Button fullWidth variant="contained" sx={{
+                    mt: 3,
+                    mb: 2,
+                    background: 'linear-gradient(to right, #4A5D5E, #3E4851)', // Gradient background
+                    color: 'white', // Text color
+                    '&:hover': {
+                        background: 'linear-gradient(to right, #3E4851, #4A5D5E)', // Gradient background on hover
+                    }
+                }}>
                     Sign Up
                 </Button>
             </Box>

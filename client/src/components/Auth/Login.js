@@ -26,16 +26,16 @@ const Login = ({ onSignUpClick }) => {
             </Typography>
             <Grid container spacing={2} justifyContent="center">
                 <Grid item>
-                    <Button color="primary" startIcon={<Facebook />} />
+                    <Button color="primary" startIcon={<Facebook style={{ color: '#4267B2' }} />} />
                 </Grid>
                 <Grid item>
-                    <Button color="primary" startIcon={<Twitter />} />
+                    <Button color="primary" startIcon={<Twitter style={{ color: '#1DA1F2' }} />} />
                 </Grid>
                 <Grid item>
-                    <Button color="primary" startIcon={<Google />} />
+                    <Button color="primary" startIcon={<Google style={{ color: '#DB4437' }} />} />
                 </Grid>
                 <Grid item>
-                    <Button color="primary" startIcon={<GitHub />} />
+                    <Button color="primary" startIcon={<GitHub style={{ color: '#24292E' }} />} />
                 </Grid>
             </Grid>
             <Typography variant="body1" align="center" gutterBottom>
@@ -49,6 +49,16 @@ const Login = ({ onSignUpClick }) => {
                     label="Email Address"
                     autoComplete="email"
                     autoFocus
+                    sx={{
+                        '& .MuiOutlinedInput-root': {
+                            '&:hover fieldset': {
+                                borderColor: '#D2DBC8', // Border color on hover
+                            },
+                            '&.Mui-focused fieldset': {
+                                borderColor: '#D2DBC8', // Border color when focused
+                            },
+                        },
+                    }}
                 />
                 <TextField
                     margin="normal"
@@ -57,6 +67,16 @@ const Login = ({ onSignUpClick }) => {
                     label="Password"
                     type={showPassword ? 'text' : 'password'}
                     autoComplete="current-password"
+                    sx={{
+                        '& .MuiOutlinedInput-root': {
+                            '&:hover fieldset': {
+                                borderColor: '#D2DBC8', // Border color on hover
+                            },
+                            '&.Mui-focused fieldset': {
+                                borderColor: '#D2DBC8', // Border color when focused
+                            },
+                        },
+                    }}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -71,7 +91,19 @@ const Login = ({ onSignUpClick }) => {
                     control={<Checkbox value="remember" color="primary" />}
                     label="Remember me"
                 />
-                <Button fullWidth variant="contained" color="primary" sx={{ mt: 3, mb: 2 }}>
+                <Button
+                    fullWidth
+                    variant="contained"
+                    sx={{
+                        mt: 3,
+                        mb: 2,
+                        background: 'linear-gradient(to right, #4A5D5E, #3E4851)', // Gradient background
+                        color: 'white', // Text color
+                        '&:hover': {
+                            background: 'linear-gradient(to right, #3E4851, #4A5D5E)', // Gradient background on hover
+                        }
+                    }}
+                >
                     Sign In
                 </Button>
                 <Grid container>
