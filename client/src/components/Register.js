@@ -8,7 +8,7 @@ import {
     Box,
     Typography
 } from '@mui/material';
-import { Facebook, Twitter, Google, GitHub } from '@material-ui/icons';
+import { Facebook, Twitter, Google, GitHub } from '@mui/icons-material';
 
 const Register = () => {
     return (
