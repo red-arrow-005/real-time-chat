@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Button,
     TextField,
@@ -6,11 +6,19 @@ import {
     FormControlLabel,
     Grid,
     Box,
-    Typography
+    Typography,
+    InputAdornment,
+    IconButton
 } from '@mui/material';
-import { Facebook, Twitter, Google, GitHub } from '@mui/icons-material';
+import { Facebook, Twitter, Google, GitHub, Visibility, VisibilityOff } from '@mui/icons-material';
 
 const Login = () => {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <Box>
             <Typography variant="h6" align="center" gutterBottom>
@@ -34,9 +42,35 @@ const Login = () => {
                 or:
             </Typography>
             <Box component="form" noValidate sx={{ mt: 1 }}>
-                <TextField margin="normal" required fullWidth label="Email Address" autoComplete="email" autoFocus />
-                <TextField margin="normal" required fullWidth label="Password" type="password" autoComplete="current-password" />
-                <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    label="Email Address"
+                    autoComplete="email"
+                    autoFocus
+                />
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    label="Password"
+                    type={showPassword ? 'text' : 'password'}
+                    autoComplete="current-password"
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton onClick={togglePasswordVisibility} edge="end">
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        )
+                    }}
+                />
+                <FormControlLabel
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="Remember me"
+                />
                 <Button fullWidth variant="contained" color="primary" sx={{ mt: 3, mb: 2 }}>
                     Sign In
                 </Button>
