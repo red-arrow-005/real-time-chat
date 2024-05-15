@@ -10,6 +10,10 @@ const AuthPage = () => {
         setTab(newValue);
     };
 
+    const handleSignUpClick = () => {
+        setTab(1);
+    };
+
     return (
         <Container component="main" maxWidth="lg" disableGutters sx={{ display: 'flex', height: '100vh' }}>
             <Grid container sx={{ flexGrow: 1, height: '100%' }}>
@@ -38,7 +42,7 @@ const AuthPage = () => {
                             <Tab label="Login" />
                             <Tab label="Register" />
                         </Tabs>
-                        {tab === 0 && <Login />}
+                        {tab === 0 && <Login onSignUpClick={handleSignUpClick} />}
                         {tab === 1 && <Register />}
                     </Box>
                 </Grid>

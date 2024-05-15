@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Facebook, Twitter, Google, GitHub, Visibility, VisibilityOff } from '@mui/icons-material';
 
-const Login = () => {
+const Login = ({ onSignUpClick }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -81,7 +81,7 @@ const Login = () => {
                         </Button>
                     </Grid>
                     <Grid item>
-                        <Button href="#" variant="body2">
+                        <Button href="#" variant="body2" onClick={onSignUpClick}>
                             {"Don't have an account? Sign Up"}
                         </Button>
                     </Grid>
