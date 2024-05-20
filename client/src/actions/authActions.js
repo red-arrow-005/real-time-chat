@@ -9,10 +9,11 @@ export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 // Action Creators
 export const signUp = (formData) => async (dispatch) => {
     try {
-        const { data } = await api.register(formData);
+        const { username, email, password } = await api.register(formData);
 
-        dispatch({ type: SIGN_UP_SUCCESS, payload: data });
+        dispatch({ type: SIGN_UP_SUCCESS, payload: { username, email, password } });
     } catch (error) {
-        dispatch({ type: SIGN_UP_FAILURE, payload: error.response.data.message });
+        console.log("first", error)
+        dispatch({ type: SIGN_UP_FAILURE, payload: error.message });
     }
 };

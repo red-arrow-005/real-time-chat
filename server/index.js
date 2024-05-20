@@ -6,6 +6,7 @@ const passport = require('passport');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+const cors = require('cors')
 const routes = require('./routes/index');
 require('./config/passport')(passport); // Passport config
 
@@ -21,6 +22,12 @@ app.use(bodyParser.json());
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// CORS middleware
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 
 // Routes
 app.use('/v1/api', routes);
