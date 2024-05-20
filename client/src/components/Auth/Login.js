@@ -10,7 +10,7 @@ import {
     InputAdornment,
     IconButton
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Facebook, Twitter, Google, GitHub, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { login } from '../../actions/authActions'; // Import your login action
 
