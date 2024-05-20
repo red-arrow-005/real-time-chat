@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux'; // Import Provider from react-redux
 import store from './store/store'; // Import your Redux store
 import './index.css';
@@ -12,8 +12,7 @@ root.render(
     <Provider store={store}> {/* Wrap your App component with Provider and pass the Redux store */}
       <App />
     </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
