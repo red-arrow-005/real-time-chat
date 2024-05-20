@@ -8,7 +8,7 @@ import { LOGIN_FAILURE, LOGIN_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_SUCCESS } from '
 export const login = (formData) => async (dispatch) => {
     try {
         const { usernameOrEmail, password } = formData;
-        const response = await api.login(usernameOrEmail, password);
+        const response = await api.login({ usernameOrEmail, password });
 
         if (response.success) {
             // If login is successful, dispatch LOGIN_SUCCESS action
