@@ -21,6 +21,7 @@ const Register = () => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [formData, setFormData] = useState({ username: '', email: '', password: '', confirmPassword: '' });
     const [errors, setErrors] = useState({});
+    const [successMessage, setSuccessMessage] = useState('');
 
     const dispatch = useDispatch();
 
@@ -36,14 +37,24 @@ const Register = () => {
         return tempErrors;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const tempErrors = validate();
         if (Object.keys(tempErrors).length === 0) {
             const { username, email, password } = formData;
-            dispatch(signUp({ username, email, password }));
+            const result = await dispatch(signUp({ username, email, password }));
+            if (result.success) {
+                setFormData({ username: '', email: '', password: '', confirmPassword: '' });
+                setErrors({});
+                setSuccessMessage('Registration successful!');
+            } else {
+                // Handle signup error if needed
+                setSuccessMessage('');
+                console.error('Sign-up failed:', result.error);
+            }
         } else {
             setErrors(tempErrors);
+            setSuccessMessage('');
         }
     };
 
@@ -192,6 +203,11 @@ const Register = () => {
                 }} type="submit">
                     Sign Up
                 </Button>
+                {successMessage && (
+                    <Typography variant="body1" align="center" color="success">
+                        {successMessage}
+                    </Typography>
+                )}
             </Box>
         </Box>
     );

@@ -12,8 +12,9 @@ export const signUp = (formData) => async (dispatch) => {
         const { username, email, password } = await api.register(formData);
 
         dispatch({ type: SIGN_UP_SUCCESS, payload: { username, email, password } });
+        return { success: true };
     } catch (error) {
-        console.log("first", error)
         dispatch({ type: SIGN_UP_FAILURE, payload: error.message });
+        return { success: false, error: error.message };
     }
 };
