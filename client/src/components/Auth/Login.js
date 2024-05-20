@@ -10,13 +10,37 @@ import {
     InputAdornment,
     IconButton
 } from '@mui/material';
-import { Facebook, Twitter, Google, GitHub, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useDispatch } from 'react-redux';
+import { login } from '../../actions/authActions'; // Import your login action
 
 const Login = ({ onSignUpClick }) => {
     const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState({ usernameOrEmail: '', password: '' });
+    const [errors, setErrors] = useState({});
+
+    const dispatch = useDispatch();
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await dispatch(login(formData)); // Dispatch login action with form data
+            // Clear form data and errors upon successful login
+            setFormData({ usernameOrEmail: '', password: '' });
+            setErrors({});
+        } catch (error) {
+            // Handle login errors, such as displaying error messages
+            setErrors({ login: error.message });
+            console.error('Login failed:', error);
+        }
     };
 
     return (
@@ -41,42 +65,27 @@ const Login = ({ onSignUpClick }) => {
             <Typography variant="body1" align="center" gutterBottom>
                 or:
             </Typography>
-            <Box component="form" noValidate sx={{ mt: 1 }}>
+            <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmit}>
                 <TextField
                     margin="normal"
                     required
                     fullWidth
-                    label="Email Address"
-                    autoComplete="email"
+                    label="Username or Email"
+                    name="usernameOrEmail"
+                    value={formData.usernameOrEmail}
+                    onChange={handleChange}
                     autoFocus
-                    sx={{
-                        '& .MuiOutlinedInput-root': {
-                            '&:hover fieldset': {
-                                borderColor: '#D2DBC8', // Border color on hover
-                            },
-                            '&.Mui-focused fieldset': {
-                                borderColor: '#D2DBC8', // Border color when focused
-                            },
-                        },
-                    }}
                 />
                 <TextField
                     margin="normal"
                     required
                     fullWidth
                     label="Password"
+                    name="password"
                     type={showPassword ? 'text' : 'password'}
+                    value={formData.password}
+                    onChange={handleChange}
                     autoComplete="current-password"
-                    sx={{
-                        '& .MuiOutlinedInput-root': {
-                            '&:hover fieldset': {
-                                borderColor: '#D2DBC8', // Border color on hover
-                            },
-                            '&.Mui-focused fieldset': {
-                                borderColor: '#D2DBC8', // Border color when focused
-                            },
-                        },
-                    }}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -93,6 +102,7 @@ const Login = ({ onSignUpClick }) => {
                 />
                 <Button
                     fullWidth
+                    type="submit"
                     variant="contained"
                     sx={{
                         mt: 3,
@@ -118,6 +128,12 @@ const Login = ({ onSignUpClick }) => {
                         </Button>
                     </Grid>
                 </Grid>
+                {/* Display login error */}
+                {errors.login && (
+                    <Typography variant="body2" color="error" align="center">
+                        {errors.login}
+                    </Typography>
+                )}
             </Box>
         </Box>
     );

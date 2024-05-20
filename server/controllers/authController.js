@@ -9,10 +9,9 @@ exports.login = async (req, res) => {
         passport.authenticate('local', async (err, user, info) => {
             if (err) {
                 return res.status(500).json({ success: false, message: 'Authentication error' });
-                return
             }
             if (!user) {
-                return res.status(401).json({ success: false, message: 'Invalid email or password' });
+                return res.status(401).json({ success: false, message: 'Invalid username/email or password' });
             }
             req.login(user, { session: false }, async (error) => {
                 if (error) {
