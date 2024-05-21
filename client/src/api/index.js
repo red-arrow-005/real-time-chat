@@ -12,10 +12,4 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-const register = (formData) => API.post('/auth/register', formData);
-const login = (formData) => API.post('/auth/login', formData);
-
-export {
-    register,
-    login
-};
+export default API;

@@ -1,6 +1,6 @@
 // actions/auth.js
 
-import * as api from '../api';
+import { register, signin } from '../api/user'
 import { LOGIN_FAILURE, LOGIN_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_SUCCESS } from '../constants/actionTypes';
 
 
@@ -8,7 +8,7 @@ import { LOGIN_FAILURE, LOGIN_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_SUCCESS } from '
 export const login = (formData) => async (dispatch) => {
     try {
         const { usernameOrEmail, password } = formData;
-        const response = await api.login({ usernameOrEmail, password });
+        const response = await signin({ usernameOrEmail, password });
 
         if (response.success) {
             // If login is successful, dispatch LOGIN_SUCCESS action
@@ -29,7 +29,7 @@ export const login = (formData) => async (dispatch) => {
 // Action Creators
 export const signUp = (formData) => async (dispatch) => {
     try {
-        const { username, email, password } = await api.register(formData);
+        const { username, email, password } = await register(formData);
 
         dispatch({ type: SIGN_UP_SUCCESS, payload: { username, email, password } });
         return { success: true };
