@@ -42,13 +42,11 @@ const Register = () => {
         const tempErrors = validate();
         if (Object.keys(tempErrors).length === 0) {
             const { username, email, password } = formData;
-            const result = await dispatch(signUp({ username, email, password }));
+            const result = await dispatch(signUp({ username, email, password },navigate));
             if (result.success) {
                 setFormData({ username: '', email: '', password: '', confirmPassword: '' });
                 setErrors({});
                 setSuccessMessage('Registration successful!');
-                // Navigate to /dashboard upon successful registration
-                navigate('/dashboard');
             } else {
                 // Handle signup error if needed
                 setSuccessMessage('');

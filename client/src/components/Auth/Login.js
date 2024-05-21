@@ -34,9 +34,7 @@ const Login = ({ onSignUpClick }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await dispatch(login(formData)); // Dispatch login action with form data
-            // Navigate to /dashboard upon successful login
-            navigate('/dashboard');
+            await dispatch(login(formData,navigate)); // Dispatch login action with form data
             // Clear form data and errors upon successful login
             setFormData({ usernameOrEmail: '', password: '' });
             setErrors({});
