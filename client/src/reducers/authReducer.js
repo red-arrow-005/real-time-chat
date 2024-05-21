@@ -1,6 +1,6 @@
 // src/reducers/authReducer.js
 
-import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, SIGN_UP_FAILURE, SIGN_UP_SUCCESS } from '../constants/actionTypes';
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, SIGN_UP_SUCCESS, SIGN_UP_FAILURE } from '../constants/actionTypes';
 
 const initialState = {
     data: JSON.parse(localStorage.getItem('profile')) || null,
@@ -10,8 +10,8 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SIGN_UP_SUCCESS:
         case LOGIN_SUCCESS:
+        case SIGN_UP_SUCCESS:
             localStorage.setItem('profile', JSON.stringify(action.payload.user));
             localStorage.setItem('token', action.payload.token);
             return {
@@ -29,7 +29,8 @@ const authReducer = (state = initialState, action) => {
                 error: action.payload,
             };
         case LOGOUT:
-            localStorage.clear();
+            localStorage.removeItem('profile');
+            localStorage.removeItem('token');
             return { ...state, data: null, token: null, error: null };
         default:
             return state;
