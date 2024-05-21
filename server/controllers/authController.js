@@ -96,3 +96,22 @@ exports.getUserProfile = async (req, res) => {
         res.status(500).json({ success: false, message: 'Server error', error: error.message });
     }
 };
+
+exports.updateUserProfile = async (req, res) => {
+    try {
+        const userId = req.userId; // Assuming you have middleware to extract userId from token
+        const updatedProfile = req.body; // Updated profile data sent in the request body
+
+        // Find user by ID and update the profile
+        const user = await User.findByIdAndUpdate(userId, updatedProfile, { new: true });
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        res.json({ success: true, message: 'Profile updated successfully', data: user });
+    } catch (error) {
+        console.error('Error updating user profile:', error);
+        res.status(500).json({ success: false, message: 'Server error', error: error.message });
+    }
+};
