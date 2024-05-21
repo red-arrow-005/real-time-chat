@@ -1,36 +1,30 @@
-import { LOGIN_FAILURE, LOGIN_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_SUCCESS } from '../constants/actionTypes';
+import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, SIGN_UP_FAILURE, SIGN_UP_SUCCESS } from '../constants/actionTypes';
 
 const initialState = {
-    user: null,
+    data: null,
     error: null,
 };
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SIGN_UP_SUCCESS:
+        case LOGIN_SUCCESS:
+            localStorage.setItem('profile', JSON.stringify({ ...action?.payload }));
             return {
                 ...state,
-                user: action.payload,
+                data: action.payload,
                 error: null,
             };
         case SIGN_UP_FAILURE:
-            return {
-                ...state,
-                user: null,
-                error: action.payload,
-            };
-        case LOGIN_SUCCESS:
-            return {
-                ...state,
-                user: action.payload,
-                error: null,
-            };
         case LOGIN_FAILURE:
             return {
                 ...state,
-                user: null,
+                data: null,
                 error: action.payload,
             };
+        case LOGOUT:
+            localStorage.clear();
+            return { ...state, data: null, error: null };
         default:
             return state;
     }
