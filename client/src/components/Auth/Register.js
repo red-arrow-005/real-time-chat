@@ -1,5 +1,3 @@
-// components/Register.js
-
 import React, { useState } from 'react';
 import {
     Button,
@@ -14,6 +12,7 @@ import {
 } from '@mui/material';
 import { Facebook, Twitter, Google, GitHub, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../actions/authActions';
 
 const Register = () => {
@@ -24,6 +23,7 @@ const Register = () => {
     const [successMessage, setSuccessMessage] = useState('');
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,9 +47,12 @@ const Register = () => {
                 setFormData({ username: '', email: '', password: '', confirmPassword: '' });
                 setErrors({});
                 setSuccessMessage('Registration successful!');
+                // Navigate to /dashboard upon successful registration
+                navigate('/dashboard');
             } else {
                 // Handle signup error if needed
                 setSuccessMessage('');
+                setErrors({ signup: result.error });
                 console.error('Sign-up failed:', result.error);
             }
         } else {
@@ -206,6 +209,11 @@ const Register = () => {
                 {successMessage && (
                     <Typography variant="body1" align="center" color="success">
                         {successMessage}
+                    </Typography>
+                )}
+                {errors.signup && (
+                    <Typography variant="body2" color="error" align="center">
+                        {errors.signup}
                     </Typography>
                 )}
             </Box>

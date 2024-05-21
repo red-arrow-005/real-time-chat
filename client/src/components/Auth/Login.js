@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { Facebook, Twitter, Google, GitHub, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../../actions/authActions'; // Import your login action
 
 const Login = ({ onSignUpClick }) => {
@@ -20,6 +21,7 @@ const Login = ({ onSignUpClick }) => {
     const [errors, setErrors] = useState({});
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,6 +35,8 @@ const Login = ({ onSignUpClick }) => {
         e.preventDefault();
         try {
             await dispatch(login(formData)); // Dispatch login action with form data
+            // Navigate to /dashboard upon successful login
+            navigate('/dashboard');
             // Clear form data and errors upon successful login
             setFormData({ usernameOrEmail: '', password: '' });
             setErrors({});

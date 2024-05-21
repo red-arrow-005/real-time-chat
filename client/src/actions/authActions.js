@@ -5,7 +5,7 @@ import { LOGIN_FAILURE, LOGIN_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_SUCCESS } from '
 
 
 // Action Creators
-export const login = (formData) => async (dispatch) => {
+export const login = (formData, navigate) => async (dispatch) => {
     try {
         const { usernameOrEmail, password } = formData;
         const response = await signin({ usernameOrEmail, password });
@@ -27,7 +27,7 @@ export const login = (formData) => async (dispatch) => {
 };
 
 // Action Creators
-export const signUp = (formData) => async (dispatch) => {
+export const signUp = (formData, navigate) => async (dispatch) => {
     try {
         const { username, email, password } = await register(formData);
 
