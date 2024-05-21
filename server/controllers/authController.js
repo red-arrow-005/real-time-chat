@@ -53,3 +53,46 @@ exports.register = async (req, res) => {
         res.status(500).json({ success: false, message: 'Server error', error: err.message });
     }
 };
+
+exports.getUserProfile = async (req, res) => {
+    try {
+        const userId = req.userId; // assuming we're fetching user by id
+
+        // Find user by ID and populate the references
+        const user = await User.findById(userId)
+            .select('-password') // Exclude password field
+            .populate('contacts', 'username email avatar') // Populate contacts with selected fields
+            .populate('groups', 'name') // Populate groups with the name field
+            .populate('blockedUsers', 'username email') // Populate blocked users with selected fields
+            .populate({
+                path: 'notifications.sender',
+                select: 'username email avatar'
+            }); // Populate notifications sender with selected fields
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        const payload = {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            avatar: user.avatar,
+            bio: user.bio,
+            contacts: user.contacts,
+            groups: user.groups,
+            online: user.online,
+            lastSeen: user.lastSeen,
+            settings: user.settings,
+            blockedUsers: user.blockedUsers,
+            notifications: user.notifications,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt
+        };
+
+        res.json({ success: true, message: 'Profile fetched successfully', data: payload });
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+        res.status(500).json({ success: false, message: 'Server error', error: error.message });
+    }
+};

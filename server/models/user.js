@@ -10,20 +10,23 @@ const userSchema = new mongoose.Schema({
     bio: { type: String, default: '' },
     contacts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     groups: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }],
-    online: { type: Boolean, default: false }, // Online status
-    lastSeen: { type: Date, default: Date.now }, // Last seen timestamp
+    messages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }], // Reference to messages
+    incomingFriendRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FriendRequest' }], // Incoming friend requests
+    outgoingFriendRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FriendRequest' }], // Outgoing friend requests
+    online: { type: Boolean, default: false },
+    lastSeen: { type: Date, default: Date.now },
     settings: {
-        theme: { type: String, default: 'light' }, // User interface theme (e.g., light, dark)
-        notifications: { type: Boolean, default: true }, // Notification settings
-        sound: { type: Boolean, default: true }, // Sound notification settings
+        theme: { type: String, default: 'light' },
+        notifications: { type: Boolean, default: true },
+        sound: { type: Boolean, default: true },
     },
-    blockedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // List of blocked users
+    blockedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     notifications: [{
         type: { type: String, enum: ['message', 'friendRequest', 'groupInvite'], required: true },
         sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         message: { type: String },
         createdAt: { type: Date, default: Date.now }
-    }] // User notifications
+    }]
 }, { timestamps: true });
 
 userSchema.pre('save', async function (next) {
