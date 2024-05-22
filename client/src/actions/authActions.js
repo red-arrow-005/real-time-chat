@@ -9,10 +9,11 @@ export const login = (formData, navigate) => async (dispatch) => {
     try {
         const { usernameOrEmail, password } = formData;
         const response = await signin({ usernameOrEmail, password });
-
-        if (response.success) {
+        console.log("----------", response.data)
+        if (response.data.success) {
             // If login is successful, dispatch LOGIN_SUCCESS action
-            dispatch({ type: LOGIN_SUCCESS, payload: response.data });
+            console.log("first", response.data?.data)
+            dispatch({ type: LOGIN_SUCCESS, payload: response.data?.data });
             navigate('/dashboard');
             return { success: true };
         } else {
@@ -30,9 +31,9 @@ export const login = (formData, navigate) => async (dispatch) => {
 // Action Creators
 export const signUp = (formData, navigate) => async (dispatch) => {
     try {
-        const { username, email, password } = await register(formData);
-
-        dispatch({ type: SIGN_UP_SUCCESS, payload: { username, email, password } });
+        const response = await register(formData);
+        console.log("first")
+        dispatch({ type: SIGN_UP_SUCCESS, payload: response.data?.data });
         navigate('/dashboard');
         return { success: true };
     } catch (error) {

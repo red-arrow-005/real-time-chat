@@ -1,5 +1,3 @@
-// src/reducers/authReducer.js
-
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, SIGN_UP_SUCCESS, SIGN_UP_FAILURE } from '../constants/actionTypes';
 
 const initialState = {
@@ -20,13 +18,13 @@ const authReducer = (state = initialState, action) => {
                 token: action.payload.token,
                 error: null,
             };
-        case SIGN_UP_FAILURE:
         case LOGIN_FAILURE:
+        case SIGN_UP_FAILURE:
             return {
                 ...state,
                 data: null,
                 token: null,
-                error: action.payload,
+                error: action.payload,  // Ensure the payload is always an error message or object
             };
         case LOGOUT:
             localStorage.removeItem('profile');
