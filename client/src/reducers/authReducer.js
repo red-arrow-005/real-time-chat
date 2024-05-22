@@ -27,8 +27,6 @@ const authReducer = (state = initialState, action) => {
                 error: action.payload,  // Ensure the payload is always an error message or object
             };
         case LOGOUT:
-            localStorage.removeItem('profile');
-            localStorage.removeItem('token');
             return { ...state, data: null, token: null, error: null };
         default:
             return state;

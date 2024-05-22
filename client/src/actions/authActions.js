@@ -43,6 +43,8 @@ export const signUp = (formData, navigate) => async (dispatch) => {
 };
 
 export const logout = (navigate) => (dispatch) => {
+    localStorage.removeItem('profile');
+    localStorage.removeItem('token');
     dispatch({ type: LOGOUT });
-    navigate('/auth');
+    navigate('/auth'); // Redirect to login page after logout
 };
