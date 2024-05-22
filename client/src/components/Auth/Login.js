@@ -13,7 +13,8 @@ import {
 import { Facebook, Twitter, Google, GitHub, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../../actions/authActions'; // Import your login action
+import { login } from '../../actions/authActions';
+import { toast } from 'react-toastify';
 
 const Login = ({ onSignUpClick }) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -34,12 +35,17 @@ const Login = ({ onSignUpClick }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await dispatch(login(formData,navigate)); // Dispatch login action with form data
-            // Clear form data and errors upon successful login
-            setFormData({ usernameOrEmail: '', password: '' });
-            setErrors({});
+            const result = await dispatch(login(formData, navigate));
+            if (result.success) {
+                toast.success(result.message);
+                setFormData({ usernameOrEmail: '', password: '' });
+                setErrors({});
+            } else {
+                toast.error(result.message);
+                setErrors({ login: result.message });
+            }
         } catch (error) {
-            // Handle login errors, such as displaying error messages
+            toast.error(error.message);
             setErrors({ login: error.message });
             console.error('Login failed:', error);
         }
@@ -139,6 +145,6 @@ const Login = ({ onSignUpClick }) => {
             </Box>
         </Box>
     );
-}
+};
 
 export default Login;

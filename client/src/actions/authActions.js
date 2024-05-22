@@ -9,22 +9,20 @@ export const login = (formData, navigate) => async (dispatch) => {
     try {
         const { usernameOrEmail, password } = formData;
         const response = await signin({ usernameOrEmail, password });
-        console.log("----------", response.data)
         if (response.data.success) {
             // If login is successful, dispatch LOGIN_SUCCESS action
-            console.log("first", response.data?.data)
             dispatch({ type: LOGIN_SUCCESS, payload: response.data?.data });
             navigate('/dashboard');
-            return { success: true };
+            return { success: true, message: response.data.message };
         } else {
             // If login fails, dispatch LOGIN_FAILURE action
             dispatch({ type: LOGIN_FAILURE, payload: response.error });
-            return { success: false, error: response.error };
+            return { success: false, message: response.data.message };
         }
     } catch (error) {
         // If an error occurs during the login process, dispatch LOGIN_FAILURE action
         dispatch({ type: LOGIN_FAILURE, payload: error.message });
-        return { success: false, error: error.message };
+        return { success: false, message: error.message };
     }
 };
 
@@ -32,13 +30,12 @@ export const login = (formData, navigate) => async (dispatch) => {
 export const signUp = (formData, navigate) => async (dispatch) => {
     try {
         const response = await register(formData);
-        console.log("first")
         dispatch({ type: SIGN_UP_SUCCESS, payload: response.data?.data });
         navigate('/dashboard');
-        return { success: true };
+        return { success: false, message: response.data.message };
     } catch (error) {
         dispatch({ type: SIGN_UP_FAILURE, payload: error.message });
-        return { success: false, error: error.message };
+        return { success: false, message: error.message };
     }
 };
 

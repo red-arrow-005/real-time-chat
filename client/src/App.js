@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import AuthPage from './pages/AuthPage'; // Import the authentication page component
 import DashboardPage from './pages/DashboardPage';
 import { useSelector } from 'react-redux';
@@ -9,6 +11,7 @@ function App() {
   return (
     <Router>
       <div>
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<Navigate to="/auth" />} />
           <Route path='/dashboard' element={token ? <DashboardPage /> : <Navigate to="/auth" />} />
