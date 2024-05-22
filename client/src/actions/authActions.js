@@ -13,11 +13,11 @@ export const login = (formData, navigate) => async (dispatch) => {
             // If login is successful, dispatch LOGIN_SUCCESS action
             dispatch({ type: LOGIN_SUCCESS, payload: response.data?.data });
             navigate('/dashboard');
-            return { success: true, message: response.data.message };
+            return { success: true, message: response.data?.message };
         } else {
             // If login fails, dispatch LOGIN_FAILURE action
-            dispatch({ type: LOGIN_FAILURE, payload: response.error });
-            return { success: false, message: response.data.message };
+            dispatch({ type: LOGIN_FAILURE, payload: null });
+            return { success: false, message: response.data?.message };
         }
     } catch (error) {
         // If an error occurs during the login process, dispatch LOGIN_FAILURE action
