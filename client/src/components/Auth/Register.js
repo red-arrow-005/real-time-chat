@@ -14,6 +14,7 @@ import { Facebook, Twitter, Google, GitHub, Visibility, VisibilityOff } from '@m
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../actions/authActions';
+import { toast } from 'react-toastify';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -42,18 +43,21 @@ const Register = () => {
         const tempErrors = validate();
         if (Object.keys(tempErrors).length === 0) {
             const { username, email, password } = formData;
-            const result = await dispatch(signUp({ username, email, password },navigate));
+            const result = await dispatch(signUp({ username, email, password }, navigate));
             if (result.success) {
+                toast.success(result.message);
                 setFormData({ username: '', email: '', password: '', confirmPassword: '' });
                 setErrors({});
                 setSuccessMessage('Registration successful!');
             } else {
                 // Handle signup error if needed
+                toast.error(result.message);
                 setSuccessMessage('');
                 setErrors({ signup: result.error });
                 console.error('Sign-up failed:', result.error);
             }
         } else {
+            toast.error(tempErrors.confirmPassword);
             setErrors(tempErrors);
             setSuccessMessage('');
         }

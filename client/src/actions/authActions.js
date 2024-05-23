@@ -21,8 +21,9 @@ export const login = (formData, navigate) => async (dispatch) => {
         }
     } catch (error) {
         // If an error occurs during the login process, dispatch LOGIN_FAILURE action
-        dispatch({ type: LOGIN_FAILURE, payload: error.message });
-        return { success: false, message: error.message };
+        const errorMessage = error.response?.data?.message || error.message;
+        dispatch({ type: LOGIN_FAILURE, payload: errorMessage });
+        return { success: false, message: errorMessage };
     }
 };
 
