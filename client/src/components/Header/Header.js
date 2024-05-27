@@ -11,6 +11,11 @@ const HeaderWrapper = styled.header`
     justify-content: space-between;
     padding: 10px 20px;
     background-color: #3f51b5;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+        justify-content: center;
+    }
 `;
 
 const Header = ({ user }) => {
