@@ -3,7 +3,7 @@ import { Avatar, Menu, MenuItem, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { UserProfileWrapper, UserName } from './UserProfileMenu.styles';
 
-const UserProfileMenu = ({ user }) => {
+const UserProfileMenu = (user) => {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleMenuOpen = (event) => {

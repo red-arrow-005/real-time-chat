@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 function App() {
   const { token } = useSelector((state) => state.auth);
   const { data } = useSelector((state) => state.auth); // Assuming user data is in the state
-
+  console.log("first", token, data)
   return (
     <Router>
       <div>
