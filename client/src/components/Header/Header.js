@@ -5,18 +5,21 @@ import SearchBar from '../SearchBar/SearchBar';
 import UserProfileMenu from '../UserProfileMenu/UserProfileMenu';
 import Notifications from '../Notifications/Notifications';
 
-const HeaderWrapper = styled.header`
+export const HeaderWrapper = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    background-color: #3f51b5;
-    flex-wrap: wrap;
+    background-color: #4A5D5E;
+    width: 100%;
+    flex-shrink: 0; /* Prevent the header from shrinking */
 
     @media (max-width: 768px) {
-        justify-content: center;
+        flex-direction: column;
+        align-items: flex-start;
     }
 `;
+
 
 const Header = ({ user }) => {
     return (

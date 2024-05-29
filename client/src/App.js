@@ -4,24 +4,30 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
-import Header from './components/Header/Header'; // Import the Header component
+import Header from './components/Header/Header';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+
+const AppWrapper = styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+`;
 
 function App() {
-  const { token } = useSelector((state) => state.auth);
-  const { data } = useSelector((state) => state.auth); // Assuming user data is in the state
-  console.log("first", token, data)
+  const { token, data } = useSelector((state) => state.auth);
+
   return (
     <Router>
-      <div>
+      <AppWrapper>
         <ToastContainer />
-        {token && <Header user={data} />} {/* Render Header only if logged in */}
+        {token && <Header user={data} />}
         <Routes>
           <Route path="/" element={<Navigate to="/auth" />} />
           <Route path='/dashboard' element={token ? <DashboardPage /> : <Navigate to="/auth" />} />
           <Route exact path="/auth" element={!token ? <AuthPage /> : <Navigate to="/dashboard" />} />
         </Routes>
-      </div>
+      </AppWrapper>
     </Router>
   );
 }
